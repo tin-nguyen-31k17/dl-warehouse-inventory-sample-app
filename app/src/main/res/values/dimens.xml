@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Define your list item height dimension -->
+    <dimen name="list_item_height">64dp</dimen>
+</resources>
