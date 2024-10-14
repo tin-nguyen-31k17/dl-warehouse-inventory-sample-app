@@ -1,6 +1,7 @@
 package com.example.warehouseinventoryapp
 
 import android.Manifest
+import android.content.Intent // Import Intent for navigation
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttonRemoveItem: Button
     private lateinit var buttonUpdateItem: Button
     private lateinit var buttonViewInventory: Button
+    private lateinit var buttonOpenConfiguration: Button // New Button
     private lateinit var recyclerViewInventory: RecyclerView
 
     // Inventory Management
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         buttonRemoveItem = findViewById(R.id.buttonRemoveItem)
         buttonUpdateItem = findViewById(R.id.buttonUpdateItem)
         buttonViewInventory = findViewById(R.id.buttonViewInventory)
+        buttonOpenConfiguration = findViewById(R.id.buttonOpenConfiguration) // Initialize new button
         recyclerViewInventory = findViewById(R.id.recyclerViewInventory)
 
         // Set up RecyclerView
@@ -81,6 +84,11 @@ class MainActivity : AppCompatActivity() {
             } else {
                 View.GONE
             }
+        }
+
+        // Set up click listener for the new button
+        buttonOpenConfiguration.setOnClickListener {
+            openConfigurationActivity()
         }
 
         // Enable exception handling for Datalogic SDK
@@ -210,5 +218,13 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         barcodeManager?.removeReadListener(readListener)
         barcodeManager?.release()
+    }
+
+    /**
+     * Function to open ConfigurationActivity
+     */
+    private fun openConfigurationActivity() {
+        val intent = Intent(this, ConfigurationActivity::class.java)
+        startActivity(intent)
     }
 }

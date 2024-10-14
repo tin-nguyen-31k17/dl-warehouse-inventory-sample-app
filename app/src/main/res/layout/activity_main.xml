@@ -36,6 +36,14 @@
         android:layout_height="wrap_content"
         android:text="View Inventory" />
 
+    <!-- New Button to Open Configuration Activity -->
+    <Button
+        android:id="@+id/buttonOpenConfiguration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open Configuration"
+        android:layout_marginTop="16dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewInventory"
         android:layout_width="match_parent"

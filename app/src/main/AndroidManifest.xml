@@ -32,6 +32,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ConfigurationActivity" />
+
         <activity
             android:name=".CradleActivity"
             android:exported="false" />
