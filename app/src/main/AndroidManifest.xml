@@ -34,15 +34,15 @@
 
         <activity android:name=".ConfigurationActivity" />
 
-        <activity
-            android:name=".CradleActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BatteryActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NfcActivity"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".CradleActivity"-->
+<!--            android:exported="false" />-->
+<!--        <activity-->
+<!--            android:name=".BatteryActivity"-->
+<!--            android:exported="false" />-->
+<!--        <activity-->
+<!--            android:name=".NfcActivity"-->
+<!--            android:exported="false" />-->
 
     </application>
 

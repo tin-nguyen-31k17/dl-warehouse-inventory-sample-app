@@ -1,90 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollViewConfiguration"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
     <LinearLayout
+        android:id="@+id/linearLayoutProperties"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <!-- Boolean Property -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Airplane Mode (Boolean)" />
+        <!-- Dynamic UI elements will be added here -->
 
-        <Switch
-            android:id="@+id/switchBooleanProperty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <!-- Numeric Property -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Brightness Level (Numeric)" />
-
-        <EditText
-            android:id="@+id/editTextNumericProperty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number" />
-
-        <!-- Text Property -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Device Name Base (Text)" />
-
-        <EditText
-            android:id="@+id/editTextTextProperty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <!-- Enum Property -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bluetooth Pairing Policy (Enum)" />
-
-        <Spinner
-            android:id="@+id/spinnerEnumProperty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <!-- Device Name Suffix -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Device Name Suffix (Enum)" />
-
-        <Spinner
-            android:id="@+id/spinnerDeviceNameSuffix"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <!-- Blob Property -->
+        <!-- Button to Apply/Save Changes -->
         <Button
-            android:id="@+id/buttonManageBlobProperty"
+            android:id="@+id/buttonApplyChanges"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Manage BT Silent Pairing Whitelisting (Blob)" />
-
-        <!-- Button to set properties -->
-        <Button
-            android:id="@+id/buttonSetProperties"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Set Properties" />
-
-        <!-- Button to set properties via Intent -->
-        <Button
-            android:id="@+id/buttonSetPropertiesViaIntent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Set Properties via Intent" />
-
+            android:text="Apply Changes"
+            android:layout_marginTop="16dp" />
     </LinearLayout>
 </ScrollView>
