@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollViewConfiguration"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutProperties"
+    <!-- Fetch Properties Button -->
+    <Button
+        android:id="@+id/buttonFetchProperties"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="Fetch Properties" />
 
-        <!-- Dynamic UI elements will be added here -->
+    <!-- Property Selector -->
+    <Spinner
+        android:id="@+id/spinnerProperties"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
 
-        <!-- Button to Apply/Save Changes -->
-        <Button
-            android:id="@+id/buttonApplyChanges"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Apply Changes"
-            android:layout_marginTop="16dp" />
+    <!-- Dynamic Input Field -->
+    <LinearLayout
+        android:id="@+id/linearLayoutInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp">
+        <!-- Dynamic input views will be added here programmatically -->
     </LinearLayout>
-</ScrollView>
+
+    <!-- Apply Changes Button -->
+    <Button
+        android:id="@+id/buttonApplyChanges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apply Changes"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
