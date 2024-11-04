@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Define colors for selected and unselected states -->
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorBottomNavBackground">#FFFFFF</color> <!-- White background -->
+    <color name="colorBottomNavItemSelected">#6200EE</color> <!-- Primary color for selected item -->
+    <color name="colorBottomNavItemUnselected">#8e8e93</color>
 </resources>

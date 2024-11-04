@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.datalogic.device.ErrorManager
 import com.datalogic.device.configuration.*
 import java.util.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ConfigurationActivity : AppCompatActivity() {
 
@@ -83,6 +84,32 @@ class ConfigurationActivity : AppCompatActivity() {
 
         buttonApplyChanges.setOnClickListener {
             applyConfigurationChanges()
+        }
+
+        // Setup BottomNavigationView
+        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavigationView.selectedItemId = R.id.navigation_configuration
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    true
+                }
+                R.id.navigation_configuration -> true // Stay here
+                R.id.navigation_system -> {
+                    startActivity(Intent(this, SystemActivity::class.java))
+                    true
+                }
+                R.id.navigation_keyboard -> {
+                    startActivity(Intent(this, KeyboardActivity::class.java))
+                    true
+                }
+                R.id.navigation_app -> {
+                    startActivity(Intent(this, AppActivity::class.java))
+                    true
+                }
+                else -> false
+            }
         }
     }
 

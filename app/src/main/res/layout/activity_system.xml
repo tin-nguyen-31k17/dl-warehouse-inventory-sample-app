@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/system_activity_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SystemActivity">
+
+    <!-- Main Content -->
+    <ScrollView
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_navigation"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Button to Trigger Firmware Upgrade -->
+            <Button
+                android:id="@+id/buttonFirmwareUpgrade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Firmware Upgrade"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Button to Retrieve Device Info -->
+            <Button
+                android:id="@+id/buttonRetrieveDeviceInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Retrieve Device Info"
+                android:layout_marginBottom="16dp" />
+
+            <!-- TextView to Display Device Info -->
+            <TextView
+                android:id="@+id/textViewDeviceInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Device information will appear here."
+                android:textSize="16sp"
+                android:padding="8dp"
+                android:background="#EFEFEF"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBottomNavBackground"
+        app:itemIconTint="@color/nav_item_color_selector"
+        app:itemTextColor="@color/nav_item_color_selector"
+        app:menu="@menu/bottom_navigation_menu" />
+
+</RelativeLayout>

@@ -1,37 +1,34 @@
 package com.example.warehouseinventoryapp
 
 import android.Manifest
-import android.content.Intent // Import Intent for navigation
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
-import android.widget.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.warehouseinventoryapp.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.datalogic.decode.BarcodeManager
-import com.datalogic.decode.DecodeResult
 import com.datalogic.decode.ReadListener
 import com.datalogic.decode.configuration.ScannerProperties
 import com.datalogic.device.ErrorManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     private var barcodeManager: BarcodeManager? = null
     private var readListener: ReadListener? = null
-    private lateinit var textViewResult: TextView
 
     private val PERMISSION_REQUEST_CODE = 100
-
-    // UI Elements
-    private lateinit var buttonAddItem: Button
-    private lateinit var buttonRemoveItem: Button
-    private lateinit var buttonUpdateItem: Button
-    private lateinit var buttonViewInventory: Button
-    private lateinit var buttonOpenConfiguration: Button // New Button
-    private lateinit var recyclerViewInventory: RecyclerView
 
     // Inventory Management
     private lateinit var inventoryAdapter: InventoryAdapter
@@ -44,51 +41,42 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        textViewResult = findViewById(R.id.textViewResult)
+        // Initialize View Binding
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // Initialize UI elements
-        buttonAddItem = findViewById(R.id.buttonAddItem)
-        buttonRemoveItem = findViewById(R.id.buttonRemoveItem)
-        buttonUpdateItem = findViewById(R.id.buttonUpdateItem)
-        buttonViewInventory = findViewById(R.id.buttonViewInventory)
-        buttonOpenConfiguration = findViewById(R.id.buttonOpenConfiguration) // Initialize new button
-        recyclerViewInventory = findViewById(R.id.recyclerViewInventory)
+        // Initialize UI elements via binding
+        binding.textViewResult.text = "Scan a barcode to see the result."
 
         // Set up RecyclerView
         inventoryAdapter = InventoryAdapter(inventoryList)
-        recyclerViewInventory.layoutManager = LinearLayoutManager(this)
-        recyclerViewInventory.adapter = inventoryAdapter
+        binding.recyclerViewInventory.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewInventory.adapter = inventoryAdapter
 
         // Set up button click listeners
-        buttonAddItem.setOnClickListener {
+        binding.buttonAddItem.setOnClickListener {
             currentAction = ActionType.ADD
             initializeBarcodeManager()
         }
 
-        buttonRemoveItem.setOnClickListener {
+        binding.buttonRemoveItem.setOnClickListener {
             currentAction = ActionType.REMOVE
             initializeBarcodeManager()
         }
 
-        buttonUpdateItem.setOnClickListener {
+        binding.buttonUpdateItem.setOnClickListener {
             currentAction = ActionType.UPDATE
             initializeBarcodeManager()
         }
 
-        buttonViewInventory.setOnClickListener {
-            recyclerViewInventory.visibility = if (recyclerViewInventory.visibility == View.GONE) {
+        binding.buttonViewInventory.setOnClickListener {
+            binding.recyclerViewInventory.visibility = if (binding.recyclerViewInventory.visibility == View.GONE) {
                 inventoryAdapter.notifyDataSetChanged()
                 View.VISIBLE
             } else {
                 View.GONE
             }
-        }
-
-        // Set up click listener for the new button
-        buttonOpenConfiguration.setOnClickListener {
-            openConfigurationActivity()
         }
 
         // Enable exception handling for Datalogic SDK
@@ -102,6 +90,40 @@ class MainActivity : AppCompatActivity() {
                 PERMISSION_REQUEST_CODE
             )
         }
+
+        // Setup BottomNavigationView
+        setupBottomNavigation()
+    }
+
+    private fun setupBottomNavigation() {
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    // Already in home, do nothing
+                    true
+                }
+                R.id.navigation_configuration -> {
+                    startActivity(Intent(this, ConfigurationActivity::class.java))
+                    true
+                }
+                R.id.navigation_system -> {
+                    startActivity(Intent(this, SystemActivity::class.java))
+                    true
+                }
+                R.id.navigation_keyboard -> {
+                    startActivity(Intent(this, KeyboardActivity::class.java))
+                    true
+                }
+                R.id.navigation_app -> {
+                    startActivity(Intent(this, AppActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+
+        // Optionally, set the selected item
+        binding.bottomNavigation.selectedItemId = R.id.navigation_home
     }
 
     private fun hasPermissions(): Boolean {
@@ -127,35 +149,39 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeBarcodeManager() {
-        try {
-            barcodeManager = BarcodeManager()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Toast.makeText(this, "Failed to initialize BarcodeManager", Toast.LENGTH_SHORT).show()
-            return
+        // Use lifecycleScope instead of creating a new CoroutineScope
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                barcodeManager = BarcodeManager()
+                readListener = ReadListener { decodeResult ->
+                    val barcodeData = decodeResult.text
+                    val symbology = decodeResult.barcodeID.name
+                    // Launch a coroutine on the Main dispatcher to call handleScannedData
+                    lifecycleScope.launch(Dispatchers.Main) {
+                        handleScannedData(barcodeData, symbology)
+                    }
+                }
+                barcodeManager?.addReadListener(readListener)
+                configureScanner()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@MainActivity, "Failed to initialize BarcodeManager", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
-
-        readListener = ReadListener { decodeResult ->
-            val barcodeData = decodeResult.text
-            val symbology = decodeResult.barcodeID.name
-            handleScannedData(barcodeData, symbology)
-        }
-
-        barcodeManager?.addReadListener(readListener)
-
-        configureScanner()
     }
 
-    private fun handleScannedData(data: String, symbology: String) {
-        runOnUiThread {
-            textViewResult.text = "Scanned: $data ($symbology)"
+    private suspend fun handleScannedData(data: String, symbology: String) {
+        withContext(Dispatchers.Main) {
+            binding.textViewResult.text = "Scanned: $data ($symbology)"
 
             when (currentAction) {
                 ActionType.ADD -> addItemToInventory(data)
                 ActionType.REMOVE -> removeItemFromInventory(data)
                 ActionType.UPDATE -> updateItemInInventory(data)
                 else -> {
-                    Toast.makeText(this, "No action selected.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, "No action selected.", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -201,7 +227,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun configureScanner() {
+    private suspend fun configureScanner() {
         try {
             val properties = ScannerProperties.edit(barcodeManager)
             properties.ean13.enable.set(true)
@@ -210,21 +236,17 @@ class MainActivity : AppCompatActivity() {
             properties.store(barcodeManager, true)
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(this, "Failed to configure scanner", Toast.LENGTH_SHORT).show()
+            withContext(Dispatchers.Main) {
+                Toast.makeText(this@MainActivity, "Failed to configure scanner", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        barcodeManager?.removeReadListener(readListener)
-        barcodeManager?.release()
-    }
-
-    /**
-     * Function to open ConfigurationActivity
-     */
-    private fun openConfigurationActivity() {
-        val intent = Intent(this, ConfigurationActivity::class.java)
-        startActivity(intent)
+        lifecycleScope.launch(Dispatchers.IO) {
+            barcodeManager?.removeReadListener(readListener)
+            barcodeManager?.release()
+        }
     }
 }

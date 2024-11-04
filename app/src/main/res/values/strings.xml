@@ -1,3 +1,65 @@
+<!-- res/values/strings.xml -->
 <resources>
-    <string name="app_name">Warehouse Inventory App</string>
+    <!-- Keyboard Remapping Section -->
+    <string name="keyboard_remapping">Keyboard Remapping</string>
+    <string name="map_key_code">Map Key Code</string>
+    <string name="map_unicode">Map Unicode</string>
+    <string name="map_intent">Map Intent</string>
+
+    <!-- Custom Action Mapping Section -->
+    <string name="custom_action_mapping">Custom Action Mapping</string>
+    <string name="map_custom_action">Map Custom Action</string>
+
+    <!-- Push To Talk (PTT) Section -->
+    <string name="push_to_talk_configuration">Push To Talk (PTT) Configuration</string>
+    <string name="configure_ptt">Configure PTT</string>
+
+    <!-- Utilities Section -->
+    <string name="utilities">Utilities</string>
+    <string name="export_configuration">Export Configuration</string>
+    <string name="import_configuration">Import Configuration</string>
+    <string name="delete_all_mappings">Delete All Mappings</string>
+
+    <!-- General Settings -->
+    <string name="general_settings">General Settings</string>
+    <string name="lock_key_input">Lock Key Input</string>
+    <string name="trigger_source">Trigger Source</string>
+    <string name="enable_trigger_source">Enable Trigger Source</string>
+
+    <!-- Auto Scan Section -->
+    <string name="auto_scan">Auto Scan</string>
+    <string name="enable_auto_scan">Enable Auto Scan</string>
+    <string name="auto_scan_range">Auto Scan Range</string>
+
+    <!-- Motion Trigger Section -->
+    <string name="motion_trigger">Motion Trigger</string>
+    <string name="enable_motion_trigger">Enable Motion Trigger</string>
+    <string name="motion_trigger_sensitivity">Motion Trigger Sensitivity</string>
+    <string name="vibrate_on_motion">Vibrate on Motion Detected</string>
+
+    <!-- Key Remapping Section -->
+    <string name="key_remapping">Key Remapping</string>
+    <string name="reset_key_remapping">Reset Key Remapping</string>
+    <string name="source_key">Source Key</string>
+    <string name="remap_type">Remap Type</string>
+    <string name="target">Target</string>
+
+    <!-- Push To Talk (PTT) Settings -->
+    <string name="ptt_settings">Push To Talk (PTT) Settings</string>
+    <string name="enable_notification">Enable Notification</string>
+    <string name="ptt_with_screen_lock">PTT with Screen Lock</string>
+    <string name="walkie_talkie_app">Walkie-Talkie App</string>
+
+    <!-- Advanced Keyboard Settings -->
+    <string name="advanced_keyboard_settings">Advanced Keyboard Settings</string>
+    <string name="enable_backlight">Enable Backlight</string>
+    <string name="backlight_brightness">Backlight Brightness</string>
+    <string name="backlight_timeout">Backlight Timeout (seconds)</string>
+    <string name="multitap_delay">Multitap Delay (ms)</string>
+
+    <!-- Hints -->
+    <string name="hint_motion_sensitivity">0</string>
+    <string name="hint_backlight_timeout">5</string>
+    <string name="hint_multitap_delay">330</string>
+    <string name="hint_package_name">Package Name</string>
 </resources>

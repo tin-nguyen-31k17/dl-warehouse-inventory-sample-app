@@ -1,54 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textViewResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Scan a barcode to see the result."
-        android:textSize="18sp" />
+    <!-- Main content layout -->
+    <LinearLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_above="@id/bottom_navigation">
 
-    <Button
-        android:id="@+id/buttonAddItem"
+        <TextView
+            android:id="@+id/textViewResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan a barcode to see the result."
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/buttonAddItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Item" />
+
+        <Button
+            android:id="@+id/buttonRemoveItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Remove Item" />
+
+        <Button
+            android:id="@+id/buttonUpdateItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Item" />
+
+        <Button
+            android:id="@+id/buttonViewInventory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Inventory" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewInventory"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <!-- Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Item" />
-
-    <Button
-        android:id="@+id/buttonRemoveItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Remove Item" />
-
-    <Button
-        android:id="@+id/buttonUpdateItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Update Item" />
-
-    <Button
-        android:id="@+id/buttonViewInventory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View Inventory" />
-
-    <!-- New Button to Open Configuration Activity -->
-    <Button
-        android:id="@+id/buttonOpenConfiguration"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Open Configuration"
-        android:layout_marginTop="16dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewInventory"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:visibility="gone" />
-
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorBottomNavBackground"
+        app:itemIconTint="@color/nav_item_color_selector"
+        app:itemTextColor="@color/nav_item_color_selector"
+        app:menu="@menu/bottom_navigation_menu" />
+</RelativeLayout>
